@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Mahasiswa</title>
+    <!-- CSS  -->
+    <link href="min/plugin-min.css" type="text/css" rel="stylesheet">
+    <link href="min/custom-min.css" type="text/css" rel="stylesheet">
+    <link href="css/custom.css" type="text/css" rel="stylesheet">
+</head>
+<body>
+<script src="min/plugin-min.js"></script>
+<script src="min/custom-min.js"></script>
+<div class="container">
+    <div class="row">
+
+        <div class="col s12 m12 l4 center-obj">
+            <div class="card teal white">
+                <div class="card-content">
+                    <span class="card-title blue-grey-text darken-1"><i class="fa fa-graduation-cap fa-2x"></i> Data Mahasiswa</span>
+                    <hr>
+                    <form method="post" action="login.php">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="username" id="first_name" type="text" class="validate">
+                                <label for="first_name">Username</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input name="password" id="last_name" type="password" class="validate">
+                                <label for="last_name">Password</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="waves-effect waves-teal btn-flat blue-text">Login</button>
+                            <button type="reset" class="waves-effect waves-teal btn-flat red-text">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
+</script>
+</body>
+</html>
