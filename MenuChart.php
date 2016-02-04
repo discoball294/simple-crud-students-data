@@ -37,7 +37,7 @@ require_once "dbConnect.php";
 
 
 <header>
-    <div class="navbar">
+    <div class="navbar navbar-fixed">
         <nav class="cyan darken-2">
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="javascript:logout()">Logout</a></li>

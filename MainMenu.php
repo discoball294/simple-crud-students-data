@@ -16,9 +16,9 @@ require_once "dbConnect.php";
     <link href="css/editor.dataTables.min.css" type="text/css" rel="stylesheet">
     <link href="css/dataTables.bootstrap.min.css" type="text/css" rel="stylesheet">
     <script src="js/sweetalert-dev.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
     <script src="min/plugin-min.js"></script>
     <script src="min/custom-min.js"></script>
-    <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap.min.js"></script>
     <script src="js/dataTables.editor.min.js"></script>
@@ -31,95 +31,7 @@ require_once "dbConnect.php";
                 padding-top: 35px;
             }
         }</style>
-    <script type="text/javascript" class="init">
-        var editor; // use a global for the submit and return data rendering in the examples
 
-        $(document).ready(function() {
-            editor = new $.fn.dataTable.Editor( {
-                "ajax": "Student.php",
-                "table": "#siswa",
-                "fields": [ {
-                    "label": "NIM:",
-                    "name": "nim"
-                }, {
-                    "label": "Nama:",
-                    "name": "nama"
-                }, {
-                    "label": "Tanggal Lahir:",
-                    "name": "tgl_lahir"
-                }, {
-                    "label": "Jenis Kelamin:",
-                    "name": "jk"
-                }, {
-                    "label": "Alamat:",
-                    "name": "alamat"
-                }
-                ]
-            } );
-
-            // New record
-            $('a.editor_create').on('click', function (e) {
-                e.preventDefault();
-
-                editor.create( {
-                    title: 'Create new record',
-                    buttons: 'Add'
-                } );
-            } );
-
-            // Edit record
-            $('#siswa').on('click', 'a.editor_edit', function (e) {
-                e.preventDefault();
-
-                editor.edit( $(this).closest('tr'), {
-                    title: 'Edit record',
-                    buttons: 'Update'
-                } );
-            } );
-
-            // Delete a record
-            $('#siswa').on('click', 'a.editor_remove', function (e) {
-                e.preventDefault();
-
-                editor.remove( $(this).closest('tr'), {
-                    title: 'Delete record',
-                    message: 'Are you sure you wish to remove this record?',
-                    buttons: 'Delete'
-                } );
-            } );
-
-            $('#siswa').DataTable( {
-                ajax: "Student.php",
-                columns: [
-                    { data: "nim" },
-                    { data: "nama" },
-                    { data: "tgl_lahir" },
-                    { data: "jk" },
-                    { data: "alamat" },
-                    {
-                        data: null,
-                        className: "center",
-                        defaultContent: '<a href="" class="editor_edit btn "><i class="fa fa-pencil"></i> </a>  <a href="" class="editor_remove btn red"><i class="fa fa-close"></i> </a>'
-                    }
-                ]
-            } );
-        } );
-
-        function logout() {
-            swal({
-                    title: "Logout ?",
-                    type: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#DD6B55",
-                    confirmButtonText: "Ya!",
-                    closeOnConfirm: false
-                },
-                function () {
-                    onclick
-                    window.location.href = 'index.html';
-                });
-        }
-    </script>
 </head>
 <body>
 
@@ -145,12 +57,14 @@ require_once "dbConnect.php";
                 </div>
             </div>
         </li>
-        <li class="bold"><a href="MenuChart.php" class="waves-effect waves-cyan"><i class="fa fa-pie-chart"></i> Chart</a>
+        <li class="bold"><a href="MenuChart.php" class="waves-effect waves-cyan"><i class="fa fa-pie-chart"></i>
+                Chart</a>
         </li>
         <li class="bold active"><a href="MainMenu.php" class="waves-effect waves-cyan"><i
                     class="fa fa-graduation-cap"></i> Daftar Siswa </a>
         </li>
-        <li class="bold"><a href="" class="waves-effect waves-cyan"><i class="fa fa-plus"></i> Tambah
+        <li class="bold"><a href="#modal1" class="waves-effect waves-cyan modal-trigger"><i class="fa fa-plus"></i>
+                Tambah
                 Mahasiswa</a>
         </li>
     </ul>
@@ -195,12 +109,149 @@ require_once "dbConnect.php";
                 </tr>
                 </thead>
                 <tbody>
-
                 </tbody>
             </table>
         </div>
     </div>
 </main>
+<!-- Modal Structure -->
+<div id="modal1" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4><i class="fa fa-graduation-cap"></i> Tambah Siswa</h4>
+        <hr>
+        <div class="row">
+            <form class="col s12" method="post" action="add.php">
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input id="nim" name="nim" type="text" class="validate">
+                        <label for="nim">NIM</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input id="nama" name="nama" type="text" class="validate">
+                        <label for="nama">Nama</label>
+                    </div>
+                    <div class="input-field col s12">
+                        <input placeholder="Tanggal Lahir" name="tgl_lahir" type="date" class="datepicker validate">
+                    </div>
+                    <p class="blue-grey-text">Jenis Kelamin</p>
+                    <p>
+                        <input name="gender" type="radio" id="test1" value="Laki-laki" />
+                        <label for="test1">Laki-laki</label>
+                    </p>
+                    <p>
+                        <input name="gender" type="radio" id="test2" value="Perempuan" />
+                        <label for="test2">Perempuan</label>
+                    </p>
+                    <div class="input-field col s12">
+                        <input id="alamat" name="alamat" type="text" class="validate">
+                        <label for="alamat">Alamat</label>
+                    </div>
+                    <div class="input-field center col s12">
+                        <button type="submit" class="btn waves-effect waves-ripple waves-light">Submit <i class="fa fa-paper-plane"></i> </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">CLOSE</a>
+    </div>
+</div>
+<script type="text/javascript" class="init">
+    var editor; // use a global for the submit and return data rendering in the examples
 
+    $(document).ready(function () {
+        $('.modal-trigger').leanModal();
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 40, // Creates a dropdown of 15 years to control year
+            format: 'yyyy-dd-mm',
+        });
+        editor = new $.fn.dataTable.Editor({
+            "ajax": "Student.php",
+            "table": "#siswa",
+            "fields": [{
+                "label": "NIM:",
+                "name": "nim"
+            }, {
+                "label": "Nama:",
+                "name": "nama"
+            }, {
+                "label": "Tanggal Lahir:",
+                "name": "tgl_lahir"
+            }, {
+                "label": "Jenis Kelamin:",
+                "name": "jk"
+            }, {
+                "label": "Alamat:",
+                "name": "alamat"
+            }
+            ]
+        });
+
+        // New record
+        $('a.editor_create').on('click', function (e) {
+            e.preventDefault();
+
+            editor.create({
+                title: 'Create new record',
+                buttons: 'Add'
+            });
+        });
+
+        // Edit record
+        $('#siswa').on('click', 'a.editor_edit', function (e) {
+            e.preventDefault();
+
+            editor.edit($(this).closest('tr'), {
+                title: 'Edit record',
+                buttons: 'Update'
+            });
+        });
+
+        // Delete a record
+        $('#siswa').on('click', 'a.editor_remove', function (e) {
+            e.preventDefault();
+
+            editor.remove($(this).closest('tr'), {
+                title: 'Delete record',
+                message: 'Are you sure you wish to remove this record?',
+                buttons: 'Delete'
+            });
+        });
+
+        $('#siswa').DataTable({
+            ajax: "Student.php",
+            columns: [
+                {data: "nim"},
+                {data: "nama"},
+                {data: "tgl_lahir"},
+                {data: "jk"},
+                {data: "alamat"},
+                {
+                    data: null,
+                    className: "center",
+                    defaultContent: '<a href="" class="editor_edit btn waves-effect waves-ripple waves-light"><i class="fa fa-pencil"></i> </a>  <a href="" class="editor_remove btn waves-effect waves-ripple waves-light red"><i class="fa fa-close"></i> </a>'
+                }
+            ]
+        });
+    });
+
+    function logout() {
+        swal({
+                title: "Logout ?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Ya!",
+                closeOnConfirm: false
+            },
+            function () {
+                onclick
+                window.location.href = 'index.html';
+            });
+    }
+
+</script>
 </body>
 </html>
