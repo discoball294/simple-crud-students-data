@@ -35,7 +35,7 @@ function () {
 echo "<script>
 sweetAlert({
     title: \"Berhasil!\",
-    text: \"Data telah ditambahkan '$tgl_lahir' \",
+    text: \"Data telah ditambahkan\",
     type: \"success\"
 },
 function () {
